@@ -1,10 +1,10 @@
 # Linked List
 
-> **What is Linked List?**
+> **What is a Linked List?**
 
 A linked list is a linear data structure, in which the elements are not stored at contiguous memory locations. The elements in a linked list are linked using pointers. In simple words, a linked list consists of nodes where each node contains a data field and a reference (link) to the next node in the list. 
 
-> **Why Linked List?**
+> **Why Linked List instead of arrays?**
 
 Arrays can be used to store linear data of similar types, but arrays have the following limitations.
 
@@ -30,7 +30,7 @@ Arrays can be used to store linear data of similar types, but arrays have the fo
 * _Doubly Linked List:_ Items can be navigated forward and backward
 * _Circular Linked List:_ Last item contains link of the first element as next and the first element has a link to the last element as previous
 
-> **Implementation**
+> **Linked List Operations**
 
 1. Insertion
    * Inserting a new node at the beginning
@@ -45,10 +45,12 @@ Arrays can be used to store linear data of similar types, but arrays have the fo
 
 > **Time Complexity**
 
-1. Indexing : O(n)
-2. Insert/delete at beginning : O(1)
-3. Insert/delete at end: O(1) when last element is known, O(n) when last element is unknown
-4. Insert/delete in middle : search time + O(1)
-5. Wasted space : O(n) for pointers
+| Operations                   | Time Complexity                                              |
+| ---------------------------- | ------------------------------------------------------------ |
+| indexing                     | O(n)                                                         |
+| insert / delete at beginning | O(1)                                                         |
+| insert / delete at end       | O(1) when last element is known, O(n) when last element is unknown |
+| insert / delete in middle    | search time + O(1)                                           |
+| wasted space                 | O(n) for pointers                                            |
 
-> **Related Questions**
+> **Linked List Problems**
