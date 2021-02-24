@@ -2,35 +2,35 @@
 
 > **Why OOP?**
 
-* OOP paradigm is mainly useful for relatively big software software.
-* The main advantage of OOP is better manageable code that real-world.
+* OOP paradigm is mainly useful for relatively big software.
+* The main advantage of OOP is better manageable that real-world.
 
 > **Class & Object**
 
 * Class is a user-defined data type which holds its own data members and member functions.
 
-* Object is an instance of class.
+* Object is an instance of a class.
 
 * When a class is defined, no memory is allocated but when it is instantiated (an object is created) memory is allocated.
 
   ```c++
   class Foo { ... }; // define a class
-  Foo foo;           // declare an object 
+  Foo foo; 		   // declare an object
   ```
 
 > **What are main features of OOP?**
 
 1. Encapsulation
 2. Inheritance
-3. Polymorphisim
+3. Polymorphism
 
 > **What is Encapsulation?**
 
-* It provides data hiding via accessor keywords such as private, protected, and public and bundling of data and methods together.
+* It provides data hiding via accessor keywords such as private, protected and public and bundling of data and methods together.
 
 > **What is Inheritance?**
 
-* A class is based on another class and uses data and implementation of the other class.
+* A class is based on another class and uses data and methods of the other class.
 
 * The purpose of inheritance is code-reuse.
 
@@ -58,34 +58,24 @@
   base->derivedMethod(); // error
   ```
 
-* If you want to prevent the inheritance, you have to mark a class as *final* keyword. 
-
-* It means trying to inherit from it will result in a compilation error.
+* If you want to prevent the inheritance, you have to mark a class as **final** keyword. It means trying to inherit from it will result in a compilation error.
 
   ```c++
   class Base final {};
-  class Derived : public Base {} // error
+  class Derived : public Base {}; // error
   ```
 
 > **Pointer & Reference Type Compatibility**
 
-* A reference or pointer to a base class can refer to a derived class object without using an explicit type cast.
+* A reference or pointer to a base class can refer to a derived class object without using an explicit type cast. It is called **upcasting**.
 
   ```c++
   Derived d;
   Base *pb = &d; // ok
-  Base &rb = &d; // ok
+  Base &rb = d;  // ok
   ```
 
-* Converting a derived-class reference or pointer to a base class reference or pointer is called *upcasting* and it is always allowed for public inheritance without the need for an explicit type cast.
-
-  ```c++
-  Derived d;
-  Base *b = &d;
-  Base &b = d;
-  ```
-
-* Converting a base class pointer or reference to a derived class pointer or reference is called *downcasting* and it is not allowed without an explicit type cast.
+* Converting a base class pointer or reference to a derived class pointer or reference is called **downcasting** and it is not allowed without an explicit type cast.
 
   ```c++
   Base *b = new Derived;
@@ -100,20 +90,20 @@
 > **What is Polymorphism?**
 
 * It means that objects behave differently in different contexts.
-* In C++, we have two types of polymorphism: Compile-time and run-time.
+* In C++, we have two types of polymorphism: Compile time and Run time.
 
-1. Compile-time Polymorphism
+1. *Compile-time Polymorphism*
    * This is also known as static or early binding.
-   * Supported by templates, function/operator overloading and default arguments.
-2. Run-time Polymorphism
+   * It is supported by templates, function / operator overloading and default arguments.
+2. *Run-time Polymorphism*
    * This is also known as dynamic or late binding.
-   * Supported by virtual functions and inheritance.
+   * It is supported by virtual functions and inheritance.
 
 > **What is virtual keyword?**
 
 * It provides run-time polymorphism.
 
-* Resolved at run-time, compiler determines the type of the object at runtime and call appropriate function.
+* It is resolved at run-time. Compiler determines the type of the object at runtime and call appropriate function.
 
   ```c++
   class Animal {
@@ -121,7 +111,7 @@
       virtual void foo();
   };
   
-  class Dog {
+  class Dog : public Animal {
   public:
       void foo() override;
   };
@@ -134,38 +124,40 @@
 
 * The main reasons to inherit from a class are to add or replace functionality.
 
-* In many cases, you will want to modify the behavior of a class by replacing or overriding method.
+* In many cases, you want to modify the behavior of a class by replacing or overriding method.
 
 * To override a method, you redeclare it in the derived class definition exactly as it was declared in the base class and you add the override keyword. In the derived classes implementation file, you provide the new definition.
 
 * A pointer or reference can refer to an object of a class or any of its derived classes. For example, if you have a base reference that refers to an object that is really a derived class.
 
-* Using *override* keyword is highly recommended. Sometimes, it is possible to accidentally create a new virtual method instead of overriding a method from the base class.
+* Using **override** keyword is highly recommended. Sometimes, it is possible to accidentally create a new virtual method instead of overriding a method from the base class.
 
   ```c++
   class Base {
   public:
-      virtual void someMethod(double);
+      virtual void someMethod(double val);
   };
   
   class Derived : public Base {
   public:
-      virtual void someMethod(int); // not overriding method, calls base class
-      void someMethod(int) override; // compiler warns for different argument type 
-  }
+      virtual void someMethod(int val); // not overriding method, calls base class
+      vod someMethod(int val) override; // compiler warns for different argument type
+  };
   ```
 
-* *Hiding Instead of Overriding:* Attempting to override a non-virtual method hides the base class definition and it will only be used in the context of the derived class.
+> **Hiding Instead of Overriding**
+
+* Attempting to override a non-virtual method hides the base class definition and it will only be used in the context of the derived class.
 
   ```c++
   class Base {
   public:
-    void go();  
+      void go(); // omit virtual keyword
   };
   
   class Derived : public Base {
   public:
-      void go(); // omit virtual keyword
+      void go(); 
   };
   
   Derived obj;
@@ -173,8 +165,10 @@
   
   Derived obj;
   Base &ref = obj;
-  ref.go(); // calls base method because it's not virtual no overriden
+  ref.go(); // calls base method because it's not virtual and no overriden
   ```
+
+> **Object Slice**
 
 > **How virtual functions works?**
 
@@ -187,35 +181,41 @@
   public:
       virtual void func1();
       virtual void func2();
-      vod nonVirtualFunc();
+      void nonVirtualFunc();
   };
   
   class Derived : public Base {
   public:
-      virtual void func2() override;
+      void func2() override;
       void nonVirtualFunc();
   };
   
-  Base base;
-  Derived derived;
+  Base b;
+  Derived d;
   ```
 
   The base object contains a pointer to its vtable. This vtable has two entries, one for func1() and one for func2().
 
-  The derived object also contains a pointer to its vtable, which has two entries, one for func1() and one for func2(). Its func1() entry points to Base::func1() because derived does not override func1(). On the other hand, its func2() entry points to Derived::func2(). Vtable do not contain any entry for the nonVirtualFunc() method because that method is not virtual.
+  The derived object also contains a pointer to its vtable, which has two entries, one for func1() and one for func2(). Its func1() entry points to Base::func1()  because derived does not override func1(). On the other hand, its func2() entry points to Derived::func2(). Vtable do not contain any entry for the nonVirtualFunc() method because that method is not virtual.
 
   ```c++
   Base::vtable    -> Base::func1, Base::func2
   Derived::vtable -> Base::func1, Derived::func2
   ```
 
-  1. An object of a base class contains a pointer to a table of addresses of all the virtual functions for that class.
-  2. An object of a derived class contains a pointer to a separate table of addresses.
-  3. If the derived class provides a new definition of a virtual function, the vtable holds the address of the new function.
-  4. If the derived class doesn't redefine the virtual function, the vtable holds the address of the original version of the function.
-  5. If the derived class defines a new function and makes it virtual, its address is added to the vtable.
-  6. When you call a virtual function, the program looks at the vtable address stored in an object and goes to the corresponding table of function addresses.
-  7. If you use the first virtual function defined in the class declaration, the program uses the first function address in the array and executes the function that has the address and so on.
+  i. An object of a base class contains a pointer to a table of addresses of all the virtual functions for that class.
+
+  ii. An object of a derived class contains a pointer to a separate table of addresses.
+
+  iii. If the derived class provides a overriding of a virtual function,  the vtable holds the address of the new function.
+
+  iv. If the derived class doesn't redefine or override the virtual function, the vtable holds the address of the original version of the function.
+
+  v. If the derived class defines a new function and makes it virtual, its address is added to the vtable.
+
+  vi. When you call a virtual function, the program looks at the vtable address stored in an object and goes to the corresponding table of function addresses.
+
+  vii. If you use the first virtual function defined in the class definition, the program uses the first function address in the array and executes the function that has the address and so on.
 
 *Drawbacks*
 
@@ -230,23 +230,21 @@
 > **Why Two Kinds of Binding and Why static is the default?**
 
 * There are two reasons: efficiency and a conceptual model.
-* For a program to be able to make a runtime decision, it has to have some way to keep track of what sort of object a base class pointer or reference to, and some extra processing overhead.
+* For a program to be able to make a run-time decision, it has to have some way to keep track of what sort of object a base class pointer or reference to, and some extra processing overhead.
 * Another reason, you design a class that won't be used as a base class for inheritance, you don't need dynamic binding.
-* Static binding is more efficient is the reason it is the default choice for C++. In C++, "You shouldn't have to pay for features you don't use."
+* Static binding is more efficient is the reason it is the default choice for C++. In C++, *"You shouldn't have to pay for features you don't use"*.
 
-> **Virtual Destructor?**
+> **Virtual Destructor**
 
 * It is usually required in a base class. Whenever upcasting is done, destructors of the base class must be made virtual for proper destruction of the object when the program exists.
 
   ```c++
-  Base *b = new Derived; // upcasting, no virtual dtor
-  delete b;			   // just call base, not safe maybe memory leak
+  Base *b = new Derived; // no virtual dtor
+  delete b;			   // just call base dtor, not safe maybe memory leak
   
-  Base *b = new Derived; // upcasting, base with virtual dtor
-  delete b;			   // call first derived dtor then base dtor
+  Base *b = new Derived; // base with virtual dtor
+  delete b;		       // call first derived dtor then base dtor
   ```
-
-  
 
 > **What is Abstraction?**
 
@@ -255,3 +253,4 @@
 * Redefined in a derived classes.
 * At least one pure virtual function is must.
 * Not instantiate abstract classes.
+
